@@ -1,0 +1,116 @@
+{% extends 'components/base.html' %}
+
+{% block title %}Наши работы{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .cases-section {
+        margin-top: 5rem;
+        padding: 2rem;
+        font-family: 'Verdana', sans-serif;
+    }
+
+    .cases-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-family: 'Arial Black', sans-serif; /* Добавляем шрифт */
+    }
+
+    .cases-slider {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .cases-slider::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
+
+    .case-image {
+        width: 500px; /* Adjust as needed */
+        height: 300px; /* Adjust as needed */
+        object-fit: cover;
+        margin-right: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Анимация появления карточек */
+    .case-image {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .case-image.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Для мобильных устройств */
+    @media (max-width: 768px) {
+        .cases-slider {
+            flex-direction: column; /* Располагаем элементы в столбик */
+            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+        }
+
+        .case-image {
+            width: 100%; /* Растягиваем изображения на всю ширину */
+            margin-right: 0; /* Убираем отступ справа */
+            margin-bottom: 1rem; /* Добавляем отступ снизу */
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <section class="cases-section">
+        <h2 class="cases-title">Наши работы</h2>
+        <div class="cases-slider">
+            {% for item in Works %}
+            <img src="{{ item.image }}" alt="{{ item.name }}" class="case-image">
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<script>
+    const slider = document.querySelector('.cases-slider');
+    const caseImages = document.querySelectorAll('.case-image');
+    let scrollAmount = 0;
+    const slideSpeed = 0.3; // Adjust as needed
+    let direction = 1; // 1 для вперед, -1 для назад
+
+    function autoScroll() {
+        scrollAmount += slideSpeed * direction;
+
+        if (scrollAmount > slider.scrollWidth - slider.clientWidth) {
+            direction = -1; // Меняем направление на обратное
+            scrollAmount = slider.scrollWidth - slider.clientWidth; // Устанавливаем в конец
+        } else if (scrollAmount < 0) {
+            direction = 1; // Меняем направление на прямое
+            scrollAmount = 0; // Устанавливаем в начало
+        }
+
+        slider.scrollTo(scrollAmount, 0);
+        requestAnimationFrame(autoScroll);
+    }
+
+    // Показываем первое изображение сразу
+    caseImages[0].classList.add('show');
+
+    // Показываем остальные изображения с задержкой
+    for (let i = 1; i < caseImages.length; i++) {
+        setTimeout(() => {
+            caseImages[i].classList.add('show');
+        }, i * 500); // Задержка 500ms
+    }
+
+    autoScroll();
+</script>
+{% endblock %}

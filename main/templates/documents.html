@@ -1,0 +1,129 @@
+{% extends 'components/base.html' %}
+
+{% block title %}Документы - Karhol Syntax{% endblock %}
+
+{% block content %}
+<style>
+    .documents-section {
+        margin-top: 5rem;
+        padding: 2rem;
+        font-family: 'Verdana', sans-serif;
+    }
+
+    .documents-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-family: 'Arial Black', sans-serif;
+    }
+
+    .documents-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .document-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .document-card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .document-card-description {
+        color: #555;
+    }
+
+    /* Стили для модального окна */
+    .modal {
+        display: none; /* Скрыто по умолчанию */
+        position: fixed; /* Фиксированное положение */
+        z-index: 1; /* Поверх всего */
+        left: 0;
+        top: 0;
+        width: 100%; /* Полная ширина */
+        height: 100%; /* Полная высота */
+        overflow: auto; /* Включить прокрутку, если контент не помещается */
+        background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* Центрирование по вертикали и горизонтали */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Можно настроить ширину */
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    /* Анимация появления */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animated {
+        animation: fadeIn 1s ease-out;
+    }
+</style>
+
+<div class="container mt-5">
+    <section class="documents-section">
+        <h2 class="documents-title">Документы</h2>
+
+        <div class="documents-container">
+            {% for doc in docs %}
+            <div class="document-card animated" onclick="openModal('{{ doc.name }}')">
+                <h3 class="document-card-title">{{ doc.title }}</h3>
+                <p class="document-card-description">Нажмите, чтобы открыть {{ doc.title }}.</p>
+            </div>
+            {% endfor %}
+    </section>
+</div>
+
+{% for doc in docs %}
+<div id="{{ doc.name }}" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('{{doc.name}}')">&times;</span>
+        <h2>{{ doc.title }}</h2>
+        <p>{{ doc.content }}</p>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+</script>
+{% endblock %}

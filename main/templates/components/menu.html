@@ -1,0 +1,108 @@
+<style>
+    /* Стили для десктопной версии */
+    .navbar-nav {
+        display: flex;
+        justify-content: space-between;
+        width: 60%;
+    }
+
+    .nav-item {
+        margin-left: 1rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        text-align: center;
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    /* Скрываем выпадающее меню на десктопе */
+    .dropdown {
+        display: none;
+    }
+
+   
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}" style="font-weight: bold;">
+            <img src="/static/images/logo.png" alt="Логотип" height="40" class="d-inline-block align-top">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'works' %}">Наши работы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'news' %}">Новости</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'documents' %}">Документы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+                </li>
+            </ul>
+
+            <form class="d-flex mx-5 formi" method="POST">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Поиск..." aria-label="Поиск" name="search"
+                       style="border-radius: 25px;">
+                <button class="btn btn-primary ms-2" type="submit"
+                        style="border-radius: 25px; background: rgb(0, 123, 255); border: none; color: rgb(255, 255, 255); transition: all 0.3s ease;">
+                    Поиск
+                </button>
+            </form>
+        </div>
+
+        <!-- Выпадающее меню для мобильной версии -->
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Меню
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{% url 'home' %}">Главная</a>
+                <a class="dropdown-item" href="{% url 'works' %}">Наши работы</a>
+                <a class="dropdown-item" href="{% url 'catalog' %}">Каталог</a>
+                <a class="dropdown-item" href="{% url 'news' %}">Новости</a>
+                <a class="dropdown-item" href="{% url 'contacts' %}">Контакты</a>
+                <form class="d-flex mx-5">
+                    <input class="form-control me-2" type="search" placeholder="Поиск..." aria-label="Поиск"
+                           style="border-radius: 25px;">
+                    <button class="btn btn-primary ms-2" type="submit"
+                            style="border-radius: 25px; background: rgb(0, 123, 255); border: none; color: rgb(255, 255, 255); transition: all 0.3s ease;">
+                        Поиск
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownButton = document.getElementById('dropdownMenuButton');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdownButton.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('show');
+        });
+    });
+</script>

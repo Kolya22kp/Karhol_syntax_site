@@ -1,0 +1,44 @@
+{% extends '../components/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>System TG Data</h1>
+
+    {% if system_tg %}
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>ip</th>
+            <th>user_agent</th>
+            <th>referer</th>
+            <th>host</th>
+            <th>method</th>
+            <th>server_name</th>
+            <th>server_port</th>
+            <th>server_host</th>
+            <th>date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in system_tg %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.ip }}</td>
+              <td>{{ item.user_agent }}</td>
+              <td>{{ item.referer }}</td>
+              <td>{{ item.host }}</td>
+              <td>{{ item.method }}</td>
+              <td>{{ item.server_name }}</td>
+              <td>{{ item.server_port }}</td>
+              <td>{{ item.server_host }}</td>
+              <td>{{ item.date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No system TG data available.</p>
+    {% endif %}
+  </div>
+{% endblock %}

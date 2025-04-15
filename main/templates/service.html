@@ -1,0 +1,48 @@
+{% extends './components/base.html' %}
+
+{% load static %}
+
+{% block title %}Услуга{% endblock%}
+
+{% block content %}
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://cdn.qwenlm.ai/output/f1934ffe-e878-4972-9950-71f1dbe58099/t2i/d6556993-9b5c-4639-9a46-d8920b336929/5d46ad1c-57f2-47b7-a0a3-0cfc063daf32.png" alt="{{ service.name }}" class="img-fluid rounded" style="height: 950px;">
+            </div>
+            <div class="col-md-6">
+                <h1 class="mb-4">{{ service.name }}</h1>
+                <div class="pricing mb-4">
+                    <span class="h2 text-primary">{{ service.price }} ₽</span>
+                    {% if service.old_price %}
+                        <span class="text-muted text-decoration-line-through ms-2">{{ service.old_price }} ₽</span>
+                    {% endif %}
+                </div>
+                <p class="text-muted">Примерные сроки: от {{ service.estimated_time }}</p>
+                <hr>
+                <div class="description mb-4">
+                    <h4>Описание услуги</h4>
+                    <p>{{ service.description }}</p>
+                </div>
+                <div class="requirements mb-4">
+                    <h4>Требования от клиента</h4>
+                    <p>{{ service.requirements }}</p>
+                </div>
+                <div class="cancellation mb-4">
+                    <h4>Условия отказа</h4>
+                    <p>{{ service.cancellation_terms }}</p>
+                </div>
+                <div class="terms">
+                    <h4>Условия оформления</h4>
+                    <p>{{ service.booking_terms }}</p>
+                </div>
+                <a href="{% url 'service_success' %}" style="text-decoration: none;">
+                    <button class="btn btn-primary mt-4">Заказать услугу</button>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

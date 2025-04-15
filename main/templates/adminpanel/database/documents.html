@@ -1,0 +1,32 @@
+{% extends '../components/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Documents Data</h1>
+
+    {% if documents %}
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Заголовок</th>
+            <th>Содержание</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in documents %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.content }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No documents data available.</p>
+    {% endif %}
+  </div>
+{% endblock %}

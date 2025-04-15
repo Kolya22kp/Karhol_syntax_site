@@ -1,0 +1,43 @@
+{% extends "./components/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Управление сайтом</h2>
+            <div class="btn-group-vertical w-100">
+                <a href="works/" class="btn btn-outline-secondary mb-2">Наши работы</a>
+                <a href="catalog/" class="btn btn-outline-secondary mb-2">Каталог</a>
+                <a href="news/" class="btn btn-outline-secondary mb-2">Новости</a>
+                <a href="documents/" class="btn btn-outline-secondary mb-2">Документы</a>
+                <a href="reviews/" class="btn btn-outline-secondary mb-2">Отзывы</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h2>Базы данных</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="btn-group-vertical w-100">
+                        <a href="db/works" class="btn btn-outline-secondary mb-2">База данных "Наши работы"</a>
+                        <a href="db/catalog" class="btn btn-outline-secondary mb-2">База данных "Каталог"</a>
+                        <a href="db/news" class="btn btn-outline-secondary mb-2">База данных "Новости"</a>
+                        <a href="db/documents" class="btn btn-outline-secondary mb-2">База данных "Документы"</a>
+                        <a href="db/reviews" class="btn btn-outline-secondary mb-2">База данных "Отзывы"</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="btn-group-vertical w-100">
+                        <a href="db/system_feedback" class="btn btn-outline-secondary mb-2">База данных обратной связи</a>
+                        <a href="db/system_tg" class="btn btn-outline-secondary mb-2">База данных переходов каталога</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends './components/base.html' %}
+
+{% load static %}
+
+{% block title %}Успешно{% endblock %}
+
+{% block content %}
+
+<div class="container text-center mt-5">
+    <div class="success-check mb-4">
+        <i class="fab fa-telegram text-primary" style="font-size: 64px;"></i>
+    </div>
+    <h1 class="mb-3">Вы будете перенаправлены в телеграмм через 3 секунды...</h1>
+    <p class="lead">С помощью нашего бота, вы сможете оформить заказ и связаться со специалистами</p>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    setTimeout(function() {
+        window.location.href = "https://t.me/zakaz_karhol_bot?start=123";
+    }, 3000);
+</script>
+{% endblock %}

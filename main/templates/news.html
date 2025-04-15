@@ -1,0 +1,97 @@
+{% extends 'components/base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<style>
+    .news-section {
+        margin-top: 5rem;
+        padding: 2rem;
+        font-family: 'Verdana', sans-serif;
+    }
+
+    .news-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-family: 'Arial Black', sans-serif;
+    }
+
+    .news-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .news-card.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .news-card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .news-card-date {
+        font-style: italic;
+        color: #777;
+        margin-bottom: 0.5rem;
+    }
+
+    .news-card-description {
+        color: #555;
+    }
+
+    .news-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container mt-5">
+    <section class="news-section">
+        <h2 class="news-title">Новости</h2>
+
+        {% for item in news %}
+            <div class="news-card">
+                
+                <h3 class="news-card-title">{{ item.title }}</h3>
+                <p class="news-card-date">{{ item.date }}</p>
+                <p class="news-card-description">{{ item.description }}</p>
+                <hr>
+                <p class="text-body-emphasis"></p>
+
+            </div>
+        {% endfor %}
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            
+        </div>
+    </section>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsCards = document.querySelectorAll('.news-card');
+        let delay = 0.2; // Задержка между появлением карточек
+
+        newsCards.forEach(card => {
+            card.style.transitionDelay = `${delay}s`;
+            card.classList.add('show');
+            delay += 0.2;
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,303 @@
+{% extends 'components/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<style>
+    @keyframes slideInFromLeft {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInFromRight {
+        0% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .main-title {
+        font-size: 4rem; /* Увеличиваем размер шрифта */
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        animation: slideInFromLeft 1s ease-in-out;
+        font-family: 'Arial Black', sans-serif; /* Добавляем шрифт */
+    }
+
+    .subtitle {
+        font-size: 2rem; /* Увеличиваем размер шрифта */
+        text-align: center;
+        color: #6c757d;
+        animation: slideInFromRight 1s ease-in-out;
+        opacity: 0; /* Initially hide the subtitle */
+        animation-delay: 0.5s; /* Delay the animation */
+        animation-fill-mode: forwards; /* Keep the final state */
+        font-family: 'Verdana', sans-serif; /* Добавляем шрифт */
+    }
+
+    /* Для мобильных устройств */
+    @media (max-width: 768px) {
+        .main-title {
+            font-size: 3rem; /* Уменьшаем размер шрифта */
+        }
+
+        .subtitle {
+            font-size: 1.5rem; /* Уменьшаем размер шрифта */
+        }
+    }
+
+    .catalog-button {
+        display: block;
+        margin: 2rem auto;
+        padding: 1rem 2rem; /* Увеличиваем padding в 2 раза */
+        font-size: 1.2rem; /* Увеличиваем размер шрифта в 2 раза */
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(to right, #ADD8E6, #87CEEB);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        width: fit-content; /* Added to fit content */
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0; /* Initially hide the button */
+        animation: fadeIn 1s ease-in-out;
+        animation-delay: 1s; /* Delay the animation */
+        animation-fill-mode: forwards; /* Keep the final state */
+        text-decoration: none; /* Убираем подчеркивание */
+    }
+
+    .catalog-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .experience-section {
+        margin-top: 15rem; /* Увеличиваем отступ */
+        padding: 2rem;
+        border-left: 0.5rem solid #ADD8E6; /* Светло-синяя вертикальная линия */
+        font-family: 'Verdana', sans-serif;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+        border-radius: 10px;
+    }
+
+    .experience-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .experience-text {
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    .testimonials-section {
+        margin-top: 10rem;
+        padding: 2rem;
+        font-family: 'Verdana', sans-serif;
+        background-color: #f0f8ff; /* Светло-синий фон */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    }
+
+    .testimonials-container {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 1rem; /* Чтобы не обрезалась тень */
+    }
+
+    .testimonial-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-right: 1rem; /* Отступ между карточками */
+        background-color: #fff; /* Белый фон для карточек */
+        width: 300px; /* Фиксированная ширина карточки */
+        flex: 0 0 auto; /* Не сжиматься и не растягиваться */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    }
+
+    .testimonial-author {
+        font-style: normal;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .testimonial-stars {
+        color: #ffc107; /* Золотой цвет для звезд */
+        margin-bottom: 0.5rem;
+    }
+
+    .testimonial-text {
+        color: #555;
+    }
+
+    .discount-section {
+        margin-top: 10rem;
+        padding: 2rem;
+        background-color: #e0f2f7; /* Светлый фон */
+        border-radius: 10px;
+        text-align: center;
+        font-family: 'Verdana', sans-serif;
+        color: #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    }
+
+    .discount-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .discount-text {
+        font-size: 1.2rem;
+    }
+
+    #polygon-canvas {
+        display: block;
+        width: 100%;
+        height: 300px; /* Adjust the height as needed */
+        background-color: #fff; /* Optional background color */
+        margin-top: 5rem; /* Добавляем отступ сверху */
+    }
+
+    .quote-section {
+        margin-top: 5rem;
+        text-align: center;
+        font-family: 'Georgia', serif;
+        font-style: italic;
+        color: #555;
+        font-size: 1.5rem; /* Увеличиваем размер шрифта */
+        opacity: 0; /* Initially hide the quote */
+        transition: opacity 1s ease-in-out; /* Fade-in transition */
+    }
+
+    .quote-author {
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 1rem;
+        font-family: 'Arial', sans-serif;
+        font-size: 1.2rem; /* Увеличиваем размер шрифта */
+    }
+
+    .additional-text {
+        margin-top: 2rem;
+        text-align: center;
+        font-family: 'Verdana', sans-serif;
+        color: #333;
+        font-size: 1.3rem; /* Увеличиваем размер шрифта */
+    }
+</style>
+<div class="container mt-5" >
+    <h1 class="main-title">Karhol Syntax - студия современных технологий</h1>
+    <p class="subtitle">Мы - команда профессионалов, занимающихся разработкой инновационных IT-решений для вашего бизнеса.</p>
+    <a href="{% url 'catalog' %}" class="catalog-button">В каталог</a>
+
+    <canvas id="polygon-canvas"></canvas>
+
+    <section id="quoteSection" class="quote-section">
+        <p>«Чтобы понять код мида, нужно быть мидом. Чтобы понять код сеньора, достаточно быть джуном»</p>
+        <p class="quote-author">Гейб Логан Ньюэлл</p>
+    </section>
+
+    <section class="experience-section">
+        <h2 class="experience-title">Наш опыт</h2>
+        <p class="experience-text">
+            Karhol Syntax - это команда опытных специалистов, которые успешно реализовали множество проектов в различных областях IT.
+            Мы гордимся нашим опытом и стремимся предоставлять нашим клиентам только лучшие решения, отвечающие их потребностям и ожиданиям.
+            Наша экспертиза позволяет нам решать самые сложные задачи и достигать высоких результатов.
+        </p>
+    </section>
+
+    <section class="testimonials-section">
+        <h2 class="experience-title"  style="border-bottom: 0.5rem solid #ADD8E6; padding-bottom: 2rem;">Отзывы</h2>
+        <div class="testimonials-container">
+            {% for item in Reviews %}
+            
+            <div class="testimonial-card">
+                <h3 class="testimonial-author">{{ item.name }}</h3>
+                <div class="testimonial-stars">{{ item.estimation }}</div>
+                <p class="testimonial-text">{{ item.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="discount-section">
+        <h2 class="discount-title">Скорее совершите заказ и получите скидку!</h2>
+        <p class="discount-text">Только сейчас у вас есть уникальная возможность получить скидку 20% на все наши услуги. Не упустите свой шанс!</p>
+    </section>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    window.onload = function() {
+        const canvas = document.getElementById('polygon-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas dimensions
+        canvas.width = window.innerWidth;
+        canvas.height = 800; // Увеличиваем высоту
+        canvas.style.backgroundColor = 'rgb(233, 236, 239)'; // Изменяем цвет фона
+
+        // Number of points
+        const numPoints = 50; // Увеличиваем количество точек
+
+        // Generate random points
+        let points = [];
+        for (let i = 0; i < numPoints; i++) {
+            points.push([
+                (i / (numPoints - 1)) * canvas.width, // Располагаем точки по ширине
+                Math.random() * canvas.height // Случайная высота
+            ]);
+        }
+
+        // Triangulate points using Delaunay
+        const delaunay = d3.Delaunay.from(points);
+        const triangles = delaunay.triangles;
+
+        // Draw triangles
+        ctx.strokeStyle = '#ADD8E6'; // Возвращаем прошлый цвет
+        ctx.lineWidth = 3; // Увеличиваем толщину линий
+
+        let i = 0;
+        function drawTriangle() {
+            if (i < triangles.length) {
+                ctx.beginPath();
+                ctx.moveTo(points[triangles[i]][0], points[triangles[i]][1]);
+                ctx.lineTo(points[triangles[i + 1]][0], points[triangles[i + 1]][1]);
+                ctx.lineTo(points[triangles[i + 2]][0], points[triangles[i + 2]][1]);
+                ctx.closePath();
+                ctx.stroke();
+                i += 3;
+                setTimeout(drawTriangle, 23); // Delay between triangles
+            } else {
+                // Show the quote after the graph is drawn
+                document.getElementById('quoteSection').style.opacity = 1;
+            }
+        }
+        drawTriangle();
+    };
+</script>
+{% endblock %}

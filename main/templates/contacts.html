@@ -1,0 +1,141 @@
+{% extends 'components/base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+
+{% block content %}
+<style>
+    .contact-section {
+        margin-top: 5rem;
+        padding: 2rem;
+        font-family: 'Verdana', sans-serif;
+    }
+
+    .contact-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: left; /* Выравнивание по левому краю */
+    }
+
+    .contact-text {
+        font-size: 1.2rem;
+        color: #333;
+        text-align: left; /* Выравнивание по левому краю */
+    }
+
+    .contact-info {
+        margin-top: 3rem;
+        text-align: left; /* Выравнивание по левому краю */
+    }
+
+    .contact-info p {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .social-icons {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .social-icons a {
+        display: inline-block;
+        margin: 0 1rem;
+        font-size: 2rem;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .social-icons a:hover {
+        color: #0056b3;
+    }
+
+    .vk-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .vk-button:hover {
+        background-color: #0056b3;
+    }
+
+    .feedback-form-container {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 1rem;
+        background-color: #f9f9f9;
+    }
+
+    .feedback-form {
+        margin-top: 3rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .form-group textarea {
+        height: 150px;
+    }
+
+    .submit-button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: #1e7e34;
+    }
+</style>
+
+<div class="container mt-5">
+    <section class="contact-section">
+        <h2 class="contact-title" style="border-bottom: 0.5rem solid #ADD8E6; padding-bottom: 1rem; margin-bottom: 30px">Обратная связь</h2>
+        <p class="contact-text">Мы готовы рассмотреть любой ваш вопрос, вам стоит лишь оставить заявку и дождаться ответа!</p>
+
+        
+
+        <form class="feedback-form" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="name">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-button">Отправить сообщение</button>
+            
+        </form>
+
+        
+    </section>
+</div>
+{% endblock %}
