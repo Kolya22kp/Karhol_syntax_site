@@ -89,8 +89,8 @@ def contacts(request):
            return render(request, 'search_results.html', context=sc)
         form = FeedbackForm(request.POST)
         if form.is_valid():
-            token = '7853451283:AAHMogrNdjOWaTS8pBau5piXF7Nu83Vl5pM'
-            chat_id = '-4772837381'
+            token = 'ВАШ_ТОКЕН_БОТА'
+            chat_id = 'ВАШ_ЧАТ_АЙДИ'
             text = f"📩 Новое сообщение!\n\n👤 Клиент: {form.data['name']}\n📫 Почта: {form.data['email']}\n🔗 Контакт: {form.data['login']}\n📃 Сообщение:\n{form.data['text']}"            
             data = get_system_info(request)
             system_text = (
